@@ -1,6 +1,6 @@
 package br.com.nextmove.condonext.rest.auth;
 
-import br.com.nextmove.condonext.dto.auth.AuthDTO;
+import br.com.nextmove.condonext.dto.authentication.UserLoginDTO;
 import br.com.nextmove.condonext.service.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,9 +32,9 @@ public class AuthResource {
     @RequestMapping(value = "/auth",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> authenticateUser(@RequestBody @Valid AuthDTO authDTO) {
+    public ResponseEntity<?> authenticateUser(@RequestBody @Valid UserLoginDTO userLoginDTO) {
 
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = AuthDTO.convert(authDTO);
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = UserLoginDTO.convert(userLoginDTO);
         try{
             Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
             return new ResponseEntity<>(tokenService.getToken(authentication), HttpStatus.OK);

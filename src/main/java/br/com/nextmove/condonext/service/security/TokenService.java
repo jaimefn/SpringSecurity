@@ -1,7 +1,7 @@
 package br.com.nextmove.condonext.service.security;
 
-import br.com.nextmove.condonext.domain.user.User;
-import br.com.nextmove.condonext.dto.auth.TokenDTO;
+import br.com.nextmove.condonext.domain.userlogin.UserLogin;
+import br.com.nextmove.condonext.dto.token.TokenDTO;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,8 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.temporal.TemporalUnit;
 import java.util.Date;
 
 @Service
@@ -23,13 +21,13 @@ public class TokenService {
 
 
     public TokenDTO getToken(Authentication authentication){
-        User user = (User) authentication.getPrincipal();
+        UserLogin userLogin = (UserLogin) authentication.getPrincipal();
         Instant instant = Instant.now();
         Date createdDate = Date.from(instant);
         Date expirationDate = Date.from(instant.plusSeconds(Long.valueOf(jwtExpirationTime)));
         String token = Jwts.builder()
                 .setIssuer("Api User CondoNext")
-                .setSubject(user.getId().toString())
+                .setSubject(userLogin.getId().toString())
                 .setIssuedAt(createdDate)
                 .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS256,jwtSecret)
