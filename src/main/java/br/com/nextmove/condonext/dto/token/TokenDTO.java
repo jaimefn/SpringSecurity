@@ -1,4 +1,4 @@
-package br.com.nextmove.condonext.dto.auth;
+package br.com.nextmove.condonext.dto.token;
 
 public class TokenDTO {
     private String token;

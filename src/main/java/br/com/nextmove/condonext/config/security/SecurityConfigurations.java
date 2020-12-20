@@ -1,6 +1,6 @@
 package br.com.nextmove.condonext.config.security;
 
-import br.com.nextmove.condonext.globalhandler.UserRepository;
+import br.com.nextmove.condonext.repository.userlogin.UserLoginRepository;
 import br.com.nextmove.condonext.service.security.AuthService;
 import br.com.nextmove.condonext.service.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +23,13 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
     AuthService authService;
     TokenService tokenService;
-    UserRepository userRepository;
+    UserLoginRepository userLoginRepository;
 
     @Autowired
-    public SecurityConfigurations(AuthService authService, TokenService tokenService, UserRepository userRepository) {
+    public SecurityConfigurations(AuthService authService, TokenService tokenService, UserLoginRepository userLoginRepository) {
         this.authService = authService;
         this.tokenService = tokenService;
-        this.userRepository = userRepository;
+        this.userLoginRepository = userLoginRepository;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(new AuthTokenFilter(tokenService, userRepository), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new AuthTokenFilter(tokenService, userLoginRepository), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

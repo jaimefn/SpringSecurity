@@ -1,7 +1,7 @@
 package br.com.nextmove.condonext.config.security;
 
-import br.com.nextmove.condonext.domain.user.User;
-import br.com.nextmove.condonext.globalhandler.UserRepository;
+import br.com.nextmove.condonext.domain.userlogin.UserLogin;
+import br.com.nextmove.condonext.repository.userlogin.UserLoginRepository;
 import br.com.nextmove.condonext.service.security.TokenService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,10 +17,10 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private final String AUTHENTICATION_TYPE="Bearer ";
 
     TokenService tokenService;
-    UserRepository userRepository;
-    public AuthTokenFilter(TokenService tokenService, UserRepository userRepository){
+    UserLoginRepository userLoginRepository;
+    public AuthTokenFilter(TokenService tokenService, UserLoginRepository userLoginRepository){
         this.tokenService = tokenService;
-        this.userRepository = userRepository;
+        this.userLoginRepository = userLoginRepository;
     }
 
     @Override
@@ -33,14 +33,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(req,resp);
     }
     private void authenticateClient(String token){
-        Long userId = tokenService.getUserId(token);
-        User user = userRepository.findById(userId).get();
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
+        Long authId = tokenService.getUserId(token);
+        UserLogin userLogin = userLoginRepository.findById(authId).get();
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userLogin,null,userLogin.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
     }
     private String extractTokenFromRequest(HttpServletRequest req) {
-        String autentication = req.getHeader("Authorization");
-        if(autentication == null || autentication.isEmpty() || !autentication.contains(AUTHENTICATION_TYPE)) return null;
-        return autentication.replace(AUTHENTICATION_TYPE,"");
+        String authentication = req.getHeader("Authorization");
+        if(authentication == null || authentication.isEmpty() || !authentication.contains(AUTHENTICATION_TYPE)) return null;
+        return authentication.replace(AUTHENTICATION_TYPE,"");
     }
 }

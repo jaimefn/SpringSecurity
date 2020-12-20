@@ -1,13 +1,13 @@
-package br.com.nextmove.condonext.dto.auth;
+package br.com.nextmove.condonext.dto.authentication;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-public class AuthDTO {
+public class UserLoginDTO {
     private String login;
     private String password;
 
-    public static UsernamePasswordAuthenticationToken convert(AuthDTO authDTO) {
-        return new UsernamePasswordAuthenticationToken(authDTO.getLogin(),authDTO.getPassword());
+    public static UsernamePasswordAuthenticationToken convert(UserLoginDTO userLoginDTO) {
+        return new UsernamePasswordAuthenticationToken(userLoginDTO.getLogin(),userLoginDTO.getPassword());
     }
 
     public String getLogin() {

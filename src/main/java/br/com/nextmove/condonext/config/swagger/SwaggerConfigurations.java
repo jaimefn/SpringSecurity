@@ -1,6 +1,6 @@
 package br.com.nextmove.condonext.config.swagger;
 
-import br.com.nextmove.condonext.domain.user.User;
+import br.com.nextmove.condonext.domain.userlogin.UserLogin;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ParameterBuilder;
@@ -21,6 +21,7 @@ public class SwaggerConfigurations {
                 .apis(RequestHandlerSelectors.basePackage("br.com.nextmove.condonext"))
                 .paths(PathSelectors.ant("/**"))
                 .build()
+                .ignoredParameterTypes(UserLogin.class)
                 .globalOperationParameters(Arrays.asList(
                         new ParameterBuilder()
                                 .name("Authorization")
