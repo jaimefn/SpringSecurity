@@ -2,6 +2,7 @@ package br.com.nextmove.condonext.service.security;
 
 import br.com.nextmove.condonext.domain.userlogin.UserLogin;
 import br.com.nextmove.condonext.dto.token.TokenDTO;
+import br.com.nextmove.condonext.utils.AbstractUtils;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +13,7 @@ import java.time.Instant;
 import java.util.Date;
 
 @Service
-public class TokenService {
+public class TokenService extends AbstractUtils {
 
     @Value("${jwt.expiration.time}")
     private String jwtExpirationTime;
@@ -40,7 +41,7 @@ public class TokenService {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
         }catch (Exception ex){
-            System.out.println("token validation error!");
+            log.warn(ex.getMessage());
         }
         return false;
     }

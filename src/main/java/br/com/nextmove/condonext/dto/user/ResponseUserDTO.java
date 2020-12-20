@@ -1,7 +1,11 @@
 package br.com.nextmove.condonext.dto.user;
 
-public abstract class UserDTO {
+import java.time.LocalDateTime;
+
+public class ResponseUserDTO {
     private Long id;
+    private LocalDateTime createdDate;
+    private boolean deleted;
     private String firstName;
     private String lastName;
     private String phone;
@@ -63,5 +67,21 @@ public abstract class UserDTO {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }

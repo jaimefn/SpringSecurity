@@ -1,4 +1,4 @@
-package br.com.nextmove.condonext.dto.authentication;
+package br.com.nextmove.condonext.dto.userlogin;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 

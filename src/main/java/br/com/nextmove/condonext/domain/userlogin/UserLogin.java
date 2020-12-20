@@ -2,8 +2,10 @@ package br.com.nextmove.condonext.domain.userlogin;
 
 import br.com.nextmove.condonext.domain.user.Profiles;
 import br.com.nextmove.condonext.domain.user.User;
+import com.google.common.base.Strings;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -13,14 +15,23 @@ import java.util.List;
 @Table(name = "user_login")
 public class UserLogin implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String login;
     private String password;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumns({ @JoinColumn(name = "user_id", referencedColumnName = "id", unique = false, nullable = false) })
     User user;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Profiles> profiles;
+
+    public UserLogin(){}
+
+    public UserLogin(String login, String password) {
+        this.id = null;
+        this.login = login;
+        this.setPassword(password);
+    }
 
     public Long getId() {
         return id;
@@ -39,7 +50,7 @@ public class UserLogin implements UserDetails {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password =  (Strings.isNullOrEmpty(password))? null : new BCryptPasswordEncoder().encode(password);
     }
 
     public User getUser() {
