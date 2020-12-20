@@ -1,6 +1,6 @@
 package br.com.nextmove.condonext.rest.auth;
 
-import br.com.nextmove.condonext.dto.authentication.UserLoginDTO;
+import br.com.nextmove.condonext.dto.userlogin.UserLoginDTO;
 import br.com.nextmove.condonext.service.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
