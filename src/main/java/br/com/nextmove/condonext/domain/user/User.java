@@ -33,7 +33,7 @@ public class User {
     public User(CreateUserDTO dto) {
         convert(dto);
         this.id = null;
-        this.userLogin = new UserLogin(dto.getUserLogin().getLogin(),dto.getUserLogin().getPassword());
+        this.userLogin = new UserLogin(dto.getLogin(),dto.getPassword());
         this.userLogin.setUser(this);
     }
 

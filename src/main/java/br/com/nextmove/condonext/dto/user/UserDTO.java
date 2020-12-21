@@ -1,10 +1,19 @@
 package br.com.nextmove.condonext.dto.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public abstract class UserDTO {
+    @JsonIgnore
     private Long id;
+    @NotNull @NotEmpty
     private String firstName;
+    @NotNull @NotEmpty
     private String lastName;
     private String phone;
+    @NotNull @NotEmpty
     private String email;
     private String cpf;
     private String avatar;
