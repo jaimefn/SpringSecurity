@@ -13,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/api")
 public class UserResource {
@@ -27,21 +29,21 @@ public class UserResource {
     @RequestMapping(value = "/user",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createUser(@RequestBody CreateUserDTO userDTO){
+    public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserDTO userDTO){
         return new ResponseEntity<>(userService.create(userDTO), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/user/{id}",
             method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UpdateUserDTO userDTO){
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @Valid  @RequestBody UpdateUserDTO userDTO){
         return new ResponseEntity<>(userService.update(id,userDTO), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user/{id}/change-password",
             method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HttpStatus> changePassword(@PathVariable Long id, @RequestBody UserLoginDTO userLoginDTO){
+    public ResponseEntity<HttpStatus> changePassword(@PathVariable Long id, @Valid  @RequestBody UserLoginDTO userLoginDTO){
         userService.changePassword(id,userLoginDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -49,7 +51,7 @@ public class UserResource {
     @RequestMapping(value = "/user/forget-password",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HttpStatus> forgetPassword(@RequestBody UserLoginDTO dto){
+    public ResponseEntity<HttpStatus> forgetPassword( @Valid @RequestBody UserLoginDTO dto){
         userService.forgetPassword(dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }

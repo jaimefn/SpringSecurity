@@ -2,8 +2,15 @@ package br.com.nextmove.condonext.dto.userlogin;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class UserLoginDTO {
+    @NotNull
+    @NotEmpty
     private String login;
+    @NotNull
+    @NotEmpty
     private String password;
 
     public static UsernamePasswordAuthenticationToken convert(UserLoginDTO userLoginDTO) {

@@ -41,7 +41,7 @@ public class TokenService extends AbstractUtils {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
         }catch (Exception ex){
-            log.warn(ex.getMessage());
+            //authentication failure
         }
         return false;
     }
