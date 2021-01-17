@@ -1,4 +1,4 @@
-package br.com.nextmove.condonext.service.exceptions;
+package br.com.nextmove.condonext.exceptions;
 
 public class UserNotFoundException extends RuntimeException {
 }
