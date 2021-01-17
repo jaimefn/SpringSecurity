@@ -1,25 +1,22 @@
 package br.com.nextmove.condonext.globalhandler;
 
 import br.com.nextmove.condonext.dto.validation.ErrorDTO;
-import br.com.nextmove.condonext.service.exceptions.LoginOrPasswordInvalidException;
-import br.com.nextmove.condonext.service.exceptions.UserNotFoundException;
+import br.com.nextmove.condonext.exceptions.LoginOrPasswordInvalidException;
+import br.com.nextmove.condonext.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalHandler {
